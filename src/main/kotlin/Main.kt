@@ -134,14 +134,15 @@ fun splitPage(page: String): List<String> {
 
 fun getPage(pageNum: Int = 0): String {
     for (i in 0..4) {
-        val proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("bproxy.sib.mts.ru", 3131))
+//        val proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("<host>", <port>))
 
         val url = URL(REQUEST_LINK + (pageNum + 1))
-        val conn: HttpURLConnection = url.openConnection(proxy) as HttpURLConnection
+//        val conn: HttpURLConnection = url.openConnection(proxy) as HttpURLConnection
+        val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
 
         val encoded = String(Base64.getEncoder().encode("username:password".toByteArray()))
 
-        conn.setRequestProperty("Proxy-Authorization", "Basic $encoded")
+//        conn.setRequestProperty("Proxy-Authorization", "Basic $encoded")
         conn.connect()
 
         if (conn.responseCode == 200 || conn.responseCode == 201) {
