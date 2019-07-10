@@ -1,0 +1,26 @@
+public class TreeBuilder {
+    public static List<MOLite> build (Map<String, MOLite> equipments) {
+
+        Collection<MOLite> equipment = equipments.values();
+        List<MOLite> roots = new ArrayList<>();
+
+        for (MOLite eq : equipment) {
+            String parent = eq.getMoId();
+            int lastIndex = parent.lastIndexOf("/");
+            while (lastIndex >= 0) {
+                parent = parent.substring(0, lastIndex);
+                if (equipments.containsKey(parent)){
+                    equipments.get(parent).addDescendant(eq);
+                    break;
+                } else {
+                    lastIndex = parent.lastIndexOf("/");
+                }
+            }
+            if (lastIndex < 0) {
+                roots.add(eq);
+                // TODO: Если это не root элемент, отображать, что это элемент без родителя
+            }
+        }
+        return roots;
+    }
+}
