@@ -1,0 +1,24 @@
+@Component
+public class CorsConfigurer extends HandlerInterceptorAdapter {
+    private static final String CREDENTIALS_NAME = "Access-Control-Allow-Credentials";
+    private static final String HEADERS_NAME = "Access-Control-Allow-Headers";
+    private static final String METHODS_NAME = "Access-Control-Allow-Methods";
+    private static final String ORIGIN_NAME = "Access-Control-Allow-Origin";
+    private static final String EXPOSE_NAME = "Access-Control-Expose-Headers";
+    private static final String MAX_AGE_NAME = "Access-Control-Max-Age";
+    private static final String REQUEST_NAME = "Access-Control-Request-Method";
+
+
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        response.setHeader(CREDENTIALS_NAME, "true");
+        response.setHeader(HEADERS_NAME, "Content-Type");
+        response.setHeader(METHODS_NAME, "OPTIONS, GET, POST, PUT, DELETE");
+        response.setHeader(ORIGIN_NAME, "");
+        response.setHeader(EXPOSE_NAME, "");
+        response.setHeader(MAX_AGE_NAME, "3600");
+        response.setHeader(REQUEST_NAME, "");
+        return true;
+    }
+}
